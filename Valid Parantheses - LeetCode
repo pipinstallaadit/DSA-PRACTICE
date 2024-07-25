@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> parenthesesStack;
+        unordered_map<char, char> parenthesesMap = {
+            {')', '('},
+            {'}', '{'},
+            {']', '['}
+        };
+
+        for (char c : s) {
+            if (parenthesesMap.find(c) == parenthesesMap.end()) { // If it's an opening parenthesis
+                parenthesesStack.push(c);
+            } else { // If it's a closing parenthesis
+                if (parenthesesStack.empty() || parenthesesStack.top() != parenthesesMap[c]) {
+                    return false;
+                }
+                parenthesesStack.pop();
+            }
+        }
+
+        return parenthesesStack.empty();
+    }
+};
